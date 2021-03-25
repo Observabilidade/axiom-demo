@@ -7,7 +7,7 @@ volumes:
 
 services:
   axiom-db:
-    image: axiomhq/axiom-db:1.5.0
+    image: axiomhq/axiom-db:1.6.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
       AXIOM_STORAGE: "minio://minio:9000/axiomdb/data?key=axiom&secret=axiomoixa&secure=false"
@@ -16,7 +16,7 @@ services:
       - postgres
     restart: unless-stopped
   axiom-core:
-    image: axiomhq/axiom-core:1.5.0
+    image: axiomhq/axiom-core:1.6.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
       AXIOM_DB_URL: "http://axiom-db"
@@ -85,7 +85,7 @@ services:
       - logs:/usr/share/log
     restart: unless-stopped
   axiom-cli-minio-traces:
-    image: axiomhq/cli:0.1.5
+    image: axiomhq/cli:0.1.14
     environment:
       AXM_URL: http://axiom-core
       AXM_TOKEN: 274dc2a2-5db4-4f8c-92a3-92e33bee92a8
