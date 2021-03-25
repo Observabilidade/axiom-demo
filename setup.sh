@@ -175,7 +175,7 @@ main () {
 	apk add --no-cache curl jq postgresql-client
 
 	log "Waiting for ${AXIOM_DEPLOYMENT_URL} to be reachable"
-	while ! curl -s "${AXIOM_DEPLOYMENT_URL}"; do
+	until curl -s "${AXIOM_DEPLOYMENT_URL}"; do
 	  sleep 0.1
 	done
 
