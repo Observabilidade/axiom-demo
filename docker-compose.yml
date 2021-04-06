@@ -53,7 +53,7 @@ services:
     build: filebeat
     command: ["-environment", "container"]
     environment:
-      PERSONAL_ACCESS_TOKEN: 274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      PERSONAL_ACCESS_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
     volumes:
       - logs:/usr/share/log:ro
     restart: unless-stopped
@@ -88,7 +88,7 @@ services:
     image: axiomhq/cli:0.1.14
     environment:
       AXM_URL: http://axiom-core
-      AXM_TOKEN: 274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      AXM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
     entrypoint: ['sh']
     command: -c 'tail -f /usr/share/log/minio-traces.log | axiom ingest minio-traces --flush-every 1s --timestamp-field time'
     volumes:
@@ -101,7 +101,7 @@ services:
     command: generate --schema /axisynth/schema.json
     environment:
       AXISYNTH_DATASET: http-logs
-      AXISYNTH_TOKEN: 274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      AXISYNTH_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
       AXISYNTH_URL: http://axiom-core
       AXISYNTH_PARALLEL: 1
     volumes:
@@ -112,7 +112,7 @@ services:
     image: python:3.9-alpine
     environment:
       AXM_URL: http://axiom-core
-      AXM_TOKEN: 274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      AXM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
       AXM_DATASET: incoming-webhooks
     entrypoint: ['sh']
     volumes: 
