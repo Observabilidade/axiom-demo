@@ -39,14 +39,13 @@ cd axiom-demo
 docker-compose up -d
 ```
 
-Open your browser to [:8080] and log in with these 
-credentials: 
+Open your browser to [:8080] and log in with these credentials:
 
 Email: `demo@axiom.co`  
 Password: `axiom-d3m0`
 
 For api access (i.e. with the cli) there is a personal access token: 
-`274dc2a2-5db4-4f8c-92a3-92e33bee92a8`.
+`xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8`.
 
 See [stopping the stack](#stopping-the-stack) for instructions to tear it down
 again.
@@ -73,7 +72,7 @@ See the [CLI installation] docs for other installation methods.
 
 Log into your axiom-demo deployment like this:
 ```sh
-echo 274dc2a2-5db4-4f8c-92a3-92e33bee92a8 | axiom auth login --url="http://localhost:8080" --alias="axiom-demo" --token-stdin --token-type personal -f
+echo xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8 | axiom auth login --url="http://localhost:8080" --alias="axiom-demo" -f
 ```
 
 ### Use the cli
