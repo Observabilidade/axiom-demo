@@ -85,7 +85,7 @@ services:
       - logs:/usr/share/log
     restart: unless-stopped
   axiom-cli-minio-traces:
-    image: axiomhq/cli:0.1.14
+    image: axiomhq/cli:0.2.0
     environment:
       AXM_URL: http://axiom-core
       AXM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
