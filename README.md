@@ -29,12 +29,12 @@ Monitors and ingestion containers.
 
 ## Get started
 
-This requires [Docker] and [docker-compose] to be installed:
+This requires [Docker] to be installed:
 
 ```sh
 git clone https://github.com/axiomhq/axiom-demo.git
 cd axiom-demo
-docker-compose up -d
+docker compose up -d
 ```
 
 Open your browser to [:8080] and log in with these credentials:
@@ -99,15 +99,14 @@ axiom ingest my-dataset < file.json
 
 ## Stopping the stack
 
-Run `docker-compose stop` to stop the stack, `docker-compose start` to start
+Run `docker compose stop` to stop the stack, `docker compose start` to start
 it again.
 
-If you want to clean up, run `docker-compose down -v` to remove all containers 
+If you want to clean up, run `docker compose down -v` to remove all containers 
 and volumes. The docker images will persist on your machine unless you manually
 delete them.
 
 [Docker]: https://docs.docker.com/engine/install/
-[docker-compose]: https://docs.docker.com/compose/install/
 [Homebrew]: https://brew.sh
 [Axiom CLI]: https://github.com/axiomhq/cli
 [CLI installation]: https://github.com/axiomhq/cli#installation

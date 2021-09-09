@@ -11,10 +11,13 @@ import requests
 
 app = Flask(__name__)
 request_url = (
-    os.environ["AXM_URL"] + "/api/v1/datasets/" + os.environ["AXM_DATASET"] + "/ingest"
+    os.environ["AXIOM_URL"]
+    + "/api/v1/datasets/"
+    + os.environ["AXIOM_DATASET"]
+    + "/ingest"
 )
 headers = {
-    "Authorization": "Bearer " + os.environ["AXM_TOKEN"],
+    "Authorization": "Bearer " + os.environ["AXIOM_TOKEN"],
     "Content-Type": "application/x-ndjson",
 }
 

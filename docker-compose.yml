@@ -85,12 +85,12 @@ services:
       - logs:/usr/share/log
     restart: unless-stopped
   axiom-cli-minio-traces:
-    image: axiomhq/cli:0.2.0
+    image: axiomhq/cli:0.4
     environment:
-      AXM_URL: http://axiom-core
-      AXM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      AXIOM_URL: http://axiom-core
+      AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
     entrypoint: ['sh']
-    command: -c 'tail -f /usr/share/log/minio-traces.log | axiom ingest minio-traces --flush-every 1s --timestamp-field time'
+    command: -c 'tail -f /usr/share/log/minio-traces.log | axiom ingest minio-traces --flush-every=1s --timestamp-field=time'
     volumes:
       - logs:/usr/share/log:ro
     restart: unless-stopped
@@ -111,9 +111,9 @@ services:
   ingest-webhook:
     image: python:3.9-alpine
     environment:
-      AXM_URL: http://axiom-core
-      AXM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
-      AXM_DATASET: incoming-webhooks
+      AXIOM_URL: http://axiom-core
+      AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
+      AXIOM_DATASET: incoming-webhooks
     entrypoint: ['sh']
     volumes: 
       - ./ingest-webhook:/app
