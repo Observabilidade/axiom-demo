@@ -66,7 +66,7 @@ services:
       MINIO_SECRET_KEY: axiomoixa
       MINIO_BROWSER: "on"
     entrypoint: sh
-    command: -c 'mkdir -p /data/axiomdb && /usr/bin/minio server --json /data'
+    command: -c 'mkdir -p /data/axiomdb && minio server --json /data'
     volumes:
       - minio_data:/data
   minio-traces:
