@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 
 volumes:
   postgres_data:
@@ -7,7 +7,7 @@ volumes:
 
 services:
   axiom-db:
-    image: axiomhq/axiom-db:1.14.0
+    image: axiomhq/axiom-db:1.16.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
       AXIOM_STORAGE: "minio://minio:9000/axiomdb/data?key=axiom&secret=axiomoixa&secure=false"
@@ -16,7 +16,7 @@ services:
       - postgres
     restart: unless-stopped
   axiom-core:
-    image: axiomhq/axiom-core:1.14.0
+    image: axiomhq/axiom-core:1.16.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
       AXIOM_DB_URL: "http://axiom-db"
@@ -38,7 +38,7 @@ services:
     command: ["/usr/bin/setup"]
 
   # Postgres container + filebeat for logs + metricbeat for metrics
-  postgres: 
+  postgres:
     image: postgres:13-alpine
     environment:
       POSTGRES_USER: axiom
@@ -48,7 +48,18 @@ services:
       - logs:/usr/share/log
       - ./postgres/entrypoint.sh:/usr/local/bin/docker-entrypoint-override.sh
     entrypoint: ["/usr/local/bin/docker-entrypoint-override.sh"]
-    command: ["postgres", "-c", "logging_collector=on", "-c", "log_statement=all", "-c", "log_directory=/usr/share/log/", "-c", "log_filename=postgres.log"]
+    command:
+      [
+        "postgres",
+        "-c",
+        "logging_collector=on",
+        "-c",
+        "log_statement=all",
+        "-c",
+        "log_directory=/usr/share/log/",
+        "-c",
+        "log_filename=postgres.log",
+      ]
   filebeat:
     build: filebeat
     command: ["-environment", "container"]
@@ -76,7 +87,7 @@ services:
       MINIO_SECRET_KEY: axiomoixa
       MINIO_HOST: http://minio:9000
     entrypoint: ["/usr/bin/sh"]
-    command: > 
+    command: >
       -c "microdnf install jq &&
       mc alias set minio $$MINIO_HOST $$MINIO_ACCESS_KEY $$MINIO_SECRET_KEY && 
       touch /usr/share/log/minio-traces.log && 
@@ -89,7 +100,7 @@ services:
     environment:
       AXIOM_URL: http://axiom-core
       AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
-    entrypoint: ['sh']
+    entrypoint: ["sh"]
     command: -c 'tail -f /usr/share/log/minio-traces.log | axiom ingest minio-traces --flush-every=1s --timestamp-field=time'
     volumes:
       - logs:/usr/share/log:ro
@@ -114,8 +125,8 @@ services:
       AXIOM_URL: http://axiom-core
       AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
       AXIOM_DATASET: incoming-webhooks
-    entrypoint: ['sh']
-    volumes: 
+    entrypoint: ["sh"]
+    volumes:
       - ./ingest-webhook:/app
     command: -c "cd /app && pip install pipenv && pipenv install && pipenv run python3 ingest_webhook.py"
     restart: unless-stopped
