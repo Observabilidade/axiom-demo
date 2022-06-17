@@ -3,7 +3,7 @@
 set -exuf
 
 # Env variables
-AXIOM_DEPLOYMENT_URL="http://axiom-core:80"
+AXIOM_DEPLOYMENT_URL="http://axiom-core:8080"
 AXIOM_USER="demo@axiom.co"
 AXIOM_PASSWORD="axiom-d3m0"
 PERSONAL_ACCESS_TOKEN="xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8"
