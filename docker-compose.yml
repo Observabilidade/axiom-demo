@@ -7,7 +7,7 @@ volumes:
 
 services:
   axiom-db:
-    image: axiomhq/axiom-db:1.20.1
+    image: axiomhq/axiom-db:1.21.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
       AXIOM_STORAGE: "minio://minio:9000/axiomdb/data?key=axiom&secret=axiomoixa&secure=false"
@@ -16,12 +16,12 @@ services:
       - postgres
     restart: unless-stopped
   axiom-core:
-    image: axiomhq/axiom-core:1.20.1
+    image: axiomhq/axiom-core:1.21.0
     environment:
       AXIOM_POSTGRES_URL: "postgres://axiom:axiom@postgres?sslmode=disable&connect_timeout=5"
-      AXIOM_DB_URL: "http://axiom-db"
+      AXIOM_DB_URL: "http://axiom-db:8080"
     ports:
-      - 8080:80
+      - "8080:8080"
     depends_on:
       - axiom-db
     restart: unless-stopped
@@ -98,7 +98,7 @@ services:
   axiom-cli-minio-traces:
     image: axiomhq/cli:0.4.2
     environment:
-      AXIOM_URL: http://axiom-core
+      AXIOM_URL: http://axiom-core:8080
       AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
     entrypoint: ["sh"]
     command: -c 'tail -f /usr/share/log/minio-traces.log | axiom ingest minio-traces --flush-every=1s --timestamp-field=time'
@@ -113,7 +113,7 @@ services:
     environment:
       AXISYNTH_DATASET: http-logs
       AXISYNTH_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
-      AXISYNTH_URL: http://axiom-core
+      AXISYNTH_URL: http://axiom-core:8080
       AXISYNTH_PARALLEL: 1
     volumes:
       - ./axisynth/schema.json:/axisynth/schema.json
@@ -122,7 +122,7 @@ services:
   ingest-webhook:
     image: python:3.9-alpine
     environment:
-      AXIOM_URL: http://axiom-core
+      AXIOM_URL: http://axiom-core:8080
       AXIOM_TOKEN: xapt-274dc2a2-5db4-4f8c-92a3-92e33bee92a8
       AXIOM_DATASET: incoming-webhooks
     entrypoint: ["sh"]
